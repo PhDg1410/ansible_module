@@ -1,0 +1,17 @@
+---
+- name: Get gather facts information
+  hosts: all
+  serial: 1 #required
+  tasks:
+    - name: Show information
+      main:
+        facts: "{{ansible_facts}}" #required
+        path: "myhost.xlsx" #optional
+        extra_vars: #optional
+          new_field: success
+          another_field: success
+      delegate_to: localhost
+      register: result
+    - name: Result
+      debug:
+        var: result.msg
